@@ -5,11 +5,11 @@ import torch
 import torch.nn.functional as F
 sys.path.append('./models/backbone')
 
-import ..datasets.mvtec as mvtec
+from ..datasets import mvtec
 from ..datasets.mvtec import _CLASSNAMES as _CLASSNAMES_mvtec_ad
-import ..datasets.visa as visa
+from ..datasets import visa
 from ..datasets.visa import _CLASSNAMES as _CLASSNAMES_visa
-import ..datasets.btad as btad
+from ..datasets import btad
 from ..datasets.btad import _CLASSNAMES as _CLASSNAMES_btad
 
 import models.backbone.open_clip as open_clip
