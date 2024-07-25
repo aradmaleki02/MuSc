@@ -29,9 +29,10 @@ warnings.filterwarnings("ignore")
 
 
 class MuSc():
-    def __init__(self, cfg, seed=0):
+    def __init__(self, cfg, seed=0, no_rscin=False):
         self.cfg = cfg
         self.seed = seed
+        self.no_rscin = no_rscin
         self.device = torch.device("cuda:{}".format(cfg['device']) if torch.cuda.is_available() else "cpu")
 
         self.path = cfg['datasets']['data_path']
@@ -238,6 +239,9 @@ class MuSc():
 
         B = anomaly_maps.shape[0]   # the number of unlabeled test images
         ac_score = np.array(anomaly_maps).reshape(B, -1).max(-1)
+        print('ac_score:', ac_score.shape)
+        print('class_tokens:', len(class_tokens))
+        print(class_tokens)
         # RsCIN
         if self.dataset == 'visa':
             k_score = [1, 8, 9]
@@ -246,6 +250,7 @@ class MuSc():
         else:
             k_score = [1, 2, 3]
         scores_cls = RsCIN(ac_score, class_tokens, k_list=k_score)
+        print(scores_cls.shape)
 
         print('computing metrics...')
         pr_sp = np.array(scores_cls)
