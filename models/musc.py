@@ -239,9 +239,7 @@ class MuSc():
 
         B = anomaly_maps.shape[0]   # the number of unlabeled test images
         ac_score = np.array(anomaly_maps).reshape(B, -1).max(-1)
-        print('ac_score:', ac_score.shape)
-        print('class_tokens:', len(class_tokens))
-        print(class_tokens)
+
         # RsCIN
         if self.dataset == 'visa':
             k_score = [1, 8, 9]
@@ -249,8 +247,9 @@ class MuSc():
             k_score = [1, 2, 3]
         else:
             k_score = [1, 2, 3]
+        if self.no_rscin:
+            k_list = [0]  # do not use RsCIN
         scores_cls = RsCIN(ac_score, class_tokens, k_list=k_score)
-        print(scores_cls.shape)
 
         print('computing metrics...')
         pr_sp = np.array(scores_cls)
