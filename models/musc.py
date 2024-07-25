@@ -249,7 +249,11 @@ class MuSc():
             k_score = [1, 2, 3]
         if self.no_rscin:
             k_score = [0]  # do not use RsCIN
+            print('not use RsCIN')
         scores_cls = RsCIN(ac_score, class_tokens, k_list=k_score)
+        # print true if scores_cls is the same as ac_score
+        print(np.allclose(scores_cls, ac_score))
+
 
         print('computing metrics...')
         pr_sp = np.array(scores_cls)

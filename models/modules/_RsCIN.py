@@ -23,6 +23,7 @@ def MMO(W, score, k_list=[1, 2, 3]):
 def RsCIN(scores_old, cls_tokens=None, k_list=[0]):
     if cls_tokens is None or 0 in k_list:
         return scores_old
+    print('using RsCIN')
     cls_tokens = np.array(cls_tokens)
     scores = (scores_old - scores_old.min()) / (scores_old.max() - scores_old.min())
     similarity_matrix = cls_tokens @ cls_tokens.T
