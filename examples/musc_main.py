@@ -26,7 +26,7 @@ def get_args():
     parser.add_argument('--img_resize', type=int, default=None, help='image size')
     parser.add_argument('--batch_size', type=int, default=None, help='batch size')
     parser.add_argument('--divide_num', type=int, default=None, help='the number of divided subsets')
-    parser.add_argument('--no-rcsin', action='store_true', help='do not use RsCIN')
+    parser.add_argument('--no-rscin', action='store_true', help='do not use RsCIN')
     args = parser.parse_args()
     return args
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     cfg = load_args(cfg, args)
     print(cfg)
     seed = 42
-    model = MuSc(cfg, seed=seed, no_rcsin=args.no_rcsin)
+    model = MuSc(cfg, seed=seed, no_rscin=args.no_rscin)
     model.main()
 
 
