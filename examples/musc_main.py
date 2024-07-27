@@ -35,7 +35,8 @@ def load_args(cfg, args):
     # If input new arguments through the script (musc.sh), the default configuration in the config file (musc.yaml) will be overwritten.
     if args.data_path is not None:
         cfg['datasets']['data_path'] = args.data_path
-    assert os.path.exists(cfg['datasets']['data_path']), f"The dataset path {cfg['datasets']['data_path']} does not exist."
+    if args.dataset_name != 'waterbirds':
+        assert os.path.exists(cfg['datasets']['data_path']), f"The dataset path {cfg['datasets']['data_path']} does not exist."
     if args.dataset_name is not None:
         cfg['datasets']['dataset_name'] = args.dataset_name
     if args.class_name is not None:
