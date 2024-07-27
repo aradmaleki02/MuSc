@@ -59,13 +59,13 @@ class Waterbird(torch.utils.data.Dataset):
             else:
                 print('Wrong mode!')
                 raise ValueError('Wrong bg mode!')
-            print('mode, len(dff)', mode, len(dff))
             all_paths = dff[['img_filename', 'y']].to_numpy()
             for i in range(len(all_paths)):
                 full_path = os.path.join(root, all_paths[i][0])
                 if full_path not in self.normal_paths:
                     self.image_paths.append(full_path)
                     self.labels.append(all_paths[i][1])
+            print(len(self.image_paths))
 
     def __len__(self):
         return len(self.image_paths)
