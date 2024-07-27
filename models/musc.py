@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn.functional as F
 sys.path.append('./models/backbone')
@@ -11,6 +12,7 @@ import DATASETS.visa as visa
 from DATASETS.visa import _CLASSNAMES as _CLASSNAMES_visa
 import DATASETS.btad as btad
 from DATASETS.btad import _CLASSNAMES as _CLASSNAMES_btad
+import DATASETS.waterbirds as waterbirds
 
 import models.backbone.open_clip as open_clip
 import models.backbone._backbones as _backbones
@@ -77,7 +79,7 @@ class MuSc():
             self.clip_model.to(self.device)
 
 
-    def load_datasets(self, category, divide_num=1, divide_iter=0):
+    def load_datasets(self, category, divide_num=1, divide_iter=0, cfg=None):
         # dataloader
         if self.dataset == 'visa':
             test_dataset = visa.VisaDataset(source=self.path, split=visa.DatasetSplit.TEST,
@@ -91,6 +93,10 @@ class MuSc():
             test_dataset = btad.BTADDataset(source=self.path, split=btad.DatasetSplit.TEST,
                                             classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
                                                 divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
+        elif self.dataset == 'waterbirds':
+            root = self.path
+            df = pd.read_csv(os.path.join(root, 'metadata.csv'))
+            test_dataset = waterbirds.Waterbird(root=root, df=df, transform=self.preprocess, train=False, mode=self.cfg['datasets']['bg'])
         return test_dataset
 
 
