@@ -45,9 +45,9 @@ class BrainTest(torch.utils.data.Dataset):
 
         ret = {
             'image': image,
-            "mask": mask,
+            "mask": None,
             "is_anomaly": has_anomaly,
-            "image_path": img_path,
+            "image_path": None,
         }
 
         return ret

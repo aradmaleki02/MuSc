@@ -168,8 +168,8 @@ class MuSc():
             # for image_info in test_dataloader:
                 if isinstance(image_info, dict):
                     image = image_info["image"]
-                    image_path_list.extend(image_info["image_path"])
-                    img_masks.append(image_info["mask"])
+                    # image_path_list.extend(image_info["image_path"])
+                    # img_masks.append(image_info["mask"])
                     gt_list.extend(list(image_info["is_anomaly"].numpy()))
                 with torch.no_grad(), torch.cuda.amp.autocast():
                     input_image = image.to(torch.float).to(self.device)
@@ -270,9 +270,10 @@ class MuSc():
         print('computing metrics...')
         pr_sp = np.array(scores_cls)
         gt_sp = np.array(gt_list)
-        gt_px = torch.cat(img_masks, dim=0).numpy().astype(np.int32)
-        pr_px = np.array(anomaly_maps)
-        image_metric, pixel_metric = compute_metrics(gt_sp, pr_sp, gt_px, pr_px)
+        # gt_px = torch.cat(img_masks, dim=0).numpy().astype(np.int32)
+        gt_px = None
+        # pr_px = np.array(anomaly_maps)
+        image_metric, pixel_metric = compute_metrics(gt_sp, pr_sp, gt_px, None)
         auroc_sp, f1_sp, ap_sp = image_metric
         auroc_px, f1_px, ap_px, aupro = pixel_metric
         print(category)
@@ -281,7 +282,7 @@ class MuSc():
 
         if self.vis:
             print('visualization...')
-            self.visualization(image_path_list, gt_list, pr_px, category)
+            # self.visualization(image_path_list, gt_list, pr_px, category)
     
         return image_metric, pixel_metric
 
