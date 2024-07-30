@@ -189,8 +189,7 @@ class MuSc():
                         patch_tokens = [patch_tokens[l].cpu() for l in range(len(self.features_list))]
                 class_tokens.extend([image_features[bi].squeeze().cpu().numpy() for bi in range(image_features.shape[0])])
                 patch_tokens_list.append(patch_tokens)  # (B, L+1, C)
-                del patch_tokens[:]
-                del image_features[:]
+
 
             end_time = time.time()
             print('extract time: {}ms per image'.format((end_time-start_time)*1000/subset_num))
