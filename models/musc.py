@@ -82,6 +82,7 @@ class MuSc():
 
     def load_datasets(self, category, divide_num=1, divide_iter=0, cfg=None):
         # dataloader
+        print('dataset', self.dataset)
         if self.dataset == 'visa':
             test_dataset = visa.VisaDataset(source=self.path, split=visa.DatasetSplit.TEST,
                                             classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
@@ -99,7 +100,7 @@ class MuSc():
             df = pd.read_csv(os.path.join(root, 'metadata.csv'))
             test_dataset = waterbirds.Waterbird(root=root, df=df, transform=self.preprocess, train=False, mode=self.cfg['datasets']['bg'])
         elif self.dataset == 'brain':
-            test_dataset = brain.BrainTest(self.preprocess)
+            test_dataset = brain.BrainTest(self.preprocess, test_id=2)
         return test_dataset
 
 
