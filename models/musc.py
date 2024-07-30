@@ -187,11 +187,15 @@ class MuSc():
                         image_features, patch_tokens = self.clip_model.encode_image(input_image, self.features_list)
                         image_features /= image_features.norm(dim=-1, keepdim=True)
                         patch_tokens = [patch_tokens[l].cpu() for l in range(len(self.features_list))]
-                image_features = [image_features[bi].squeeze().cpu().numpy() for bi in range(image_features.shape[0])]
-                class_tokens.extend(image_features)
+                class_tokens.extend([image_features[bi].squeeze().cpu().numpy() for bi in range(image_features.shape[0])])
                 patch_tokens_list.append(patch_tokens)  # (B, L+1, C)
+                del patch_tokens[:]
+                del image_features[:]
+
             end_time = time.time()
             print('extract time: {}ms per image'.format((end_time-start_time)*1000/subset_num))
+
+
             
             # LNAMD
             feature_dim = patch_tokens_list[0][0].shape[-1]
@@ -201,6 +205,7 @@ class MuSc():
                 print('aggregation degree: {}'.format(r))
                 LNAMD_r = LNAMD(device=self.device, r=r, feature_dim=feature_dim, feature_layer=self.features_list)
                 Z_layers = {}
+                print('here')
                 for im in range(len(patch_tokens_list)):
                     patch_tokens = [p.to(self.device) for p in patch_tokens_list[im]]
                     with torch.no_grad(), torch.cuda.amp.autocast():
