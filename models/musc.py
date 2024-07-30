@@ -13,6 +13,7 @@ from DATASETS.visa import _CLASSNAMES as _CLASSNAMES_visa
 import DATASETS.btad as btad
 from DATASETS.btad import _CLASSNAMES as _CLASSNAMES_btad
 import DATASETS.waterbirds as waterbirds
+import DATASETS.brain as brain
 
 import models.backbone.open_clip as open_clip
 import models.backbone._backbones as _backbones
@@ -97,6 +98,8 @@ class MuSc():
             root = self.path
             df = pd.read_csv(os.path.join(root, 'metadata.csv'))
             test_dataset = waterbirds.Waterbird(root=root, df=df, transform=self.preprocess, train=False, mode=self.cfg['datasets']['bg'])
+        elif self.dataset == 'brain':
+            test_dataset = brain.BrainTest(self.preprocess)
         return test_dataset
 
 
