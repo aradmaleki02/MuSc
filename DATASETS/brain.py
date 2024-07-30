@@ -38,7 +38,7 @@ class BrainTest(torch.utils.data.Dataset):
         mask = torch.zeros([1, *image.size()[1:]])
 
         ret = {
-            'image': img,
+            'image': image,
             "mask": mask,
             "is_anomaly": has_anomaly,
             "image_path": img_path,
