@@ -135,7 +135,7 @@ class MuSc():
 
 
     def make_category_data(self, category):
-        print(category)
+        print('category', category)
 
         # divide sub-datasets
         divide_num = self.divide_num
@@ -146,8 +146,10 @@ class MuSc():
         image_path_list = []
         start_time_all = time.time()
         dataset_num = 0
+        print('divide_num', divide_num)
         for divide_iter in range(divide_num):
             test_dataset = self.load_datasets(category, divide_num=divide_num, divide_iter=divide_iter)
+            print('len', len(test_dataset))
             test_dataloader = torch.utils.data.DataLoader(
                 test_dataset,
                 batch_size=self.batch_size,
