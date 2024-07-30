@@ -13,17 +13,17 @@ class BrainTest(torch.utils.data.Dataset):
         test_normal_path = glob('./Br35H/dataset/test/normal/*')
         test_anomaly_path = glob('./Br35H/dataset/test/anomaly/*')
 
-        random.shuffle(test_anomaly_path)
-        random.shuffle(test_normal_path)
-        test_anomaly_path = test_anomaly_path[:len(test_anomaly_path) // 3]
-        test_normal_path = test_anomaly_path[:len(test_normal_path) // 3]
-
         self.test_path = test_normal_path + test_anomaly_path
         self.test_label = [0] * len(test_normal_path) + [1] * len(test_anomaly_path)
 
         if self.test_id == 2:
             test_normal_path = glob('./brats/dataset/test/normal/*')
             test_anomaly_path = glob('./brats/dataset/test/anomaly/*')
+
+            random.shuffle(test_anomaly_path)
+            random.shuffle(test_normal_path)
+            test_anomaly_path = test_anomaly_path[:len(test_anomaly_path) // 3]
+            test_normal_path = test_anomaly_path[:len(test_normal_path) // 3]
 
             self.test_path = test_normal_path + test_anomaly_path
             self.test_label = [0] * len(test_normal_path) + [1] * len(test_anomaly_path)
