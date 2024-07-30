@@ -193,7 +193,7 @@ class MuSc():
 
             end_time = time.time()
             print('extract time: {}ms per image'.format((end_time-start_time)*1000/subset_num))
-
+            torch.cuda.empty_cache()
 
             
             # LNAMD
@@ -217,6 +217,7 @@ class MuSc():
                             Z_layers[str(l)].append(features[:, :, l, :])
                 end_time = time.time()
                 print('LNAMD-{}: {}ms per image'.format(r, (end_time-start_time)*1000/subset_num))
+                torch.cuda.empty_cache()
 
                 # MSM
                 anomaly_maps_l = torch.tensor([]).double()
