@@ -39,6 +39,7 @@ def compute_metrics(gt_sp=None, pr_sp=None, gt_px=None, pr_px=None):
         precisions, recalls, thresholds = precision_recall_curve(gt_sp, pr_sp)
         f1_scores = (2 * precisions * recalls) / (precisions + recalls)
         f1_sp = np.max(f1_scores[np.isfinite(f1_scores)])
+        print('auroc', auroc_sp)
 
     # segmentation
     if gt_px is None or pr_px is None or gt_px.sum() == 0:
