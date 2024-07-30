@@ -101,6 +101,8 @@ class MuSc():
             test_dataset = waterbirds.Waterbird(root=root, df=df, transform=self.preprocess, train=False, mode=self.cfg['datasets']['bg'])
         elif self.dataset == 'brain':
             test_dataset = brain.BrainTest(self.preprocess, test_id=2)
+        elif self.dataset == 'br35':
+            test_dataset = brain.BrainTest(self.preprocess, test_id=1)
         return test_dataset
 
 
