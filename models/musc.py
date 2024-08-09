@@ -157,7 +157,7 @@ class MuSc():
                 test_dataset,
                 batch_size=self.batch_size,
                 shuffle=False,
-                num_workers=0,
+                num_workers=4,
                 pin_memory=True,
             )
             

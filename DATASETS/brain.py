@@ -15,8 +15,8 @@ class BrainTest(torch.utils.data.Dataset):
 
         random.shuffle(test_anomaly_path)
         random.shuffle(test_normal_path)
-        test_anomaly_path = test_anomaly_path[:len(test_anomaly_path) // 5]
-        test_normal_path = test_normal_path[:len(test_normal_path) // 5]
+        # test_anomaly_path = test_anomaly_path[:len(test_anomaly_path) // 5]
+        # test_normal_path = test_normal_path[:len(test_normal_path) // 5]
 
         self.test_path = test_normal_path + test_anomaly_path
         self.test_label = [0] * len(test_normal_path) + [1] * len(test_anomaly_path)
