@@ -27,6 +27,7 @@ def get_args():
     parser.add_argument('--batch_size', type=int, default=None, help='batch size')
     parser.add_argument('--divide_num', type=int, default=None, help='the number of divided subsets')
     parser.add_argument('--no_rscin', action='store_true', help='do not use RsCIN')
+    parser.add_argument('--high_var', action='store_true', help='mvtec high variance')
     parser.add_argument('--bg', type=str, help='background (only needed for waterbirds)', choices=['bg_land', 'bg_water', 'bg_all'], default='bg_all')
     args = parser.parse_args()
     return args
@@ -78,6 +79,7 @@ def load_args(cfg, args):
     if args.divide_num is not None:
         cfg['datasets']['divide_num'] = args.divide_num
     cfg['datasets']['bg'] = args.bg
+    cfg['datasets']['high_var'] = args.high_var
     return cfg
 
 if __name__ == "__main__":

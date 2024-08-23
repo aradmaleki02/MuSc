@@ -88,9 +88,17 @@ class MuSc():
                                             classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
                                                 divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
         elif self.dataset == 'mvtec_ad':
-            test_dataset = mvtec.MVTecDataset(source=self.path, split=mvtec.DatasetSplit.TEST,
-                                            classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
-                                                divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
+            if not cfg['datasets']['high_var']:
+                test_dataset = mvtec.MVTecDataset(source=self.path, split=mvtec.DatasetSplit.TEST,
+                                                classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
+                                                    divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
+            else:
+                ds = []
+                for cat in mvtec._CLASSNAMES:
+                    ds.append(mvtec.MVTecDataset(source=self.path, split=mvtec.DatasetSplit.TEST,
+                                                classname=cat, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
+                                                    divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed))
+                test_dataset = torch.utils.data.ConcatDataset(ds)
         elif self.dataset == 'btad':
             test_dataset = btad.BTADDataset(source=self.path, split=btad.DatasetSplit.TEST,
                                             classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
