@@ -42,6 +42,10 @@ class MVTecDataset(torch.utils.data.Dataset):
             # divide into subsets
             self.data_to_iterate = self.sub_datasets(self.data_to_iterate, divide_num, divide_iter, random_seed)
 
+        random.seed(random_seed)
+        random.shuffle(self.data_to_iterate)
+        self.data_to_iterate = self.data_to_iterate[:len(self.data_to_iterate) // 2]
+
         if k_shot > 0:
             # few-shot
             torch.manual_seed(random_seed)
