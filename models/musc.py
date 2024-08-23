@@ -88,7 +88,7 @@ class MuSc():
                                             classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
                                                 divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
         elif self.dataset == 'mvtec_ad':
-            if not cfg['datasets']['high_var']:
+            if not self.cfg['datasets']['high_var']:
                 test_dataset = mvtec.MVTecDataset(source=self.path, split=mvtec.DatasetSplit.TEST,
                                                 classname=category, resize=self.image_size, imagesize=self.image_size, clip_transformer=self.preprocess,
                                                     divide_num=divide_num, divide_iter=divide_iter, random_seed=self.seed)
