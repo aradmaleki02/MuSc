@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn.functional as F
+
+from DATASETS import mnist
+
 sys.path.append('./models/backbone')
 
 import DATASETS.mvtec as mvtec
@@ -111,6 +114,8 @@ class MuSc():
             test_dataset = brain.BrainTest(self.preprocess, test_id=2)
         elif self.dataset == 'br35':
             test_dataset = brain.BrainTest(self.preprocess, test_id=1)
+        elif self.dataset == 'mnist':
+            test_dataset = mnist.MNIST_Dataset(train=False, test_id=1, transform=self.preprocess)
         return test_dataset
 
 
