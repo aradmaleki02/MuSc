@@ -115,7 +115,13 @@ class MuSc():
         elif self.dataset == 'br35':
             test_dataset = brain.BrainTest(self.preprocess, test_id=1)
         elif self.dataset == 'mnist':
-            test_dataset = mnist.MNIST_Dataset(train=False, test_id=1, transform=self.preprocess)
+            from torchvision import transforms
+            preprocess = transforms.Compose([
+                transforms.ToPILImage(),
+                transforms.Resize((224, 224)),
+                transforms.ToTensor()
+            ])
+            test_dataset = mnist.MNIST_Dataset(train=False, test_id=1, transform=preprocess)
         return test_dataset
 
 
